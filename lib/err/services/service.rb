@@ -1,7 +1,15 @@
 module Err
   class Service
     class << self
+      def available?
+        raise NotImplementedError
+      end
+
       def enabled?
+        available?
+      end
+
+      def configure(&block)
         raise NotImplementedError
       end
 
@@ -9,15 +17,15 @@ module Err
         raise NotImplementedError
       end
 
-      def ignored=(exception_names)
+      def ignore=(exception_names)
         raise NotImplementedError
       end
 
-      def notify(exception)
+      def notify(exception, params = {})
         raise NotImplementedError
       end
 
-      def message(msg)
+      def message(msg, params = {})
         raise NotImplementedError
       end
     end

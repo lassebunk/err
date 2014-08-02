@@ -1,6 +1,6 @@
 %w{
   version
-  service
+  services
 }.each { |f| require "err/#{f}" }
 
 module Err
@@ -11,6 +11,15 @@ module Err
     end
 
     def services
+      @services ||= ObjectSpace.each_object(Class).select { |klass| klass < Err::Service && klass.enabled? }
+    end
+
+    private
+
+    def call_each_service(method, *args)
+      services.each do |s|
+        s.send method, *args
+      end
     end
   end
 end
