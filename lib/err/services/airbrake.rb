@@ -1,24 +1,40 @@
 module Err
   class Airbrake < Service
     class << self
-      def enabled?
-        defined?(::Airbrake)
+      def available?
+        defined?(Airbrake)
+      end
+
+      def configure(&block)
+        return unless enabled?
+        airbrake.configure(&block)
       end
 
       def environments=(envs)
-        Airbrake.development_environments -= envs.map(&:to_s)
+        config.development_environments -= envs.map(&:to_s)
       end
 
-      def ignored=(exception_names)
-        Airbrake.ignore << *exception_names
+      def ignore=(exception_names)
+        config.ignore.clear
+        config.ignore.concat exception_names
       end
 
-      def notify(exception)
-        Airbrake.notify(exception)
+      def notify(exception, params = {})
+        airbrake.notify_or_ignore(exception, parameters: params)
       end
 
-      def message(msg)
-        Airbrake.notify(message)
+      def message(msg, params = {})
+        airbrake.notify(msg, parameters: params)
+      end
+
+      private
+
+      def airbrake
+        ::Airbrake
+      end
+
+      def config
+        airbrake.configuration
       end
     end
   end
