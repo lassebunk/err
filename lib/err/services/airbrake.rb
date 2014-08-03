@@ -2,7 +2,7 @@ module Err
   class Airbrake < Service
     class << self
       def available?
-        defined?(Airbrake)
+        defined?(::Airbrake)
       end
 
       def configure(&block)
