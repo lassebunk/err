@@ -5,7 +5,7 @@ It adds a simple API that you can use to set up all your notification gems in on
 
 Err works with or without Rails.
 
-**Supported services:** [Airbrake](https://github.com/airbrake/airbrake), [Honeybadger](https://github.com/honeybadger-io/honeybadger-ruby), [Opbeat](https://github.com/opbeat/opbeat_ruby).
+**Supported services:** [Airbrake](https://github.com/airbrake/airbrake), [Honeybadger](https://github.com/honeybadger-io/honeybadger-ruby) and [Opbeat](https://github.com/opbeat/opbeat_ruby).
 If you use a service that isn't listed here, please [add it](#contributing) so others can use it too. Thanks :heart:
 
 ## Installation
@@ -20,16 +20,48 @@ And then execute:
 
 ## Usage
 
+To use a service, just add its Ruby gem to your *Gemfile* and set it up as shown below.
+
 Example configuration, in an initializer, e.g. *config/initializers/err.rb*:
 
 ```ruby
 Err.configure do |config|
+  # Set up shared configuration
   config.environments = %w{ staging production }
   config.ignore << "Some::Exception"
+
+  # Set up Airbrake
+  config.airbrake do |config|
+    config.api_key = 'some key'
+  end
+
+  # Set up Honeybadger
+  config.honeybadger do |config|
+    config.api_key = 'some key'
+  end
+
+  # Set up Opbeat
+  config.opbeat do |config|
+    config.organization_id = 'some organization id'
+    config.app_id = 'some app id'
+    config.secret_token = 'some secret token'
+  end
 end
 ```
 
-### Manually tracking notifications
+To remove a service, you just remove its Ruby gem from the *Gemfile*. You can leave the config if you wish, so you can use it at a later time. It won't get called if the service's Ruby gem isn't available.
+
+### In Rails projects
+
+## Defaults
+
+Err sets up some defaults that makes it easy to try out new services without the common setup.
+
+#### Ignored exceptions by default
+
+#### Default notification environments
+
+## Manually tracking exceptions
 
 The various error notification gems will track errors automatically. In addition, Err adds a simple API for tracking exceptions and messages manually.
 
@@ -39,7 +71,7 @@ The following will send an exception to all available services:
 
 ```ruby
 begin
-  # Some failure prone code
+  # Some failing code
 rescue => e
   Err.notify e, some_param: "Some value"
 end
@@ -52,14 +84,6 @@ You can send a message manually that isn't an actual exception to all services:
 ```ruby
 Err.message "Something went wrong", this_is: "A param"
 ```
-
-## Defaults
-
-Err sets up some defaults so you don't have to.
-
-#### Ignored exceptions by default
-
-#### Default environments
 
 ## Contributing
 
