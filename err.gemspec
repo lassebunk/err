@@ -24,5 +24,6 @@ Gem::Specification.new do |s|
 
   # Services
   s.add_development_dependency "airbrake"
+  s.add_development_dependency "honeybadger"
   s.add_development_dependency "opbeat"
 end
