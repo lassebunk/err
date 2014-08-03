@@ -49,6 +49,14 @@ Err.configure do |config|
 end
 ```
 
+If you prefer to have the individual services set up in different initializers, you can do the following:
+
+```ruby
+Err.configure :airbrake do |config|
+  config.api_key = 'some key'
+end
+```
+
 To remove a service, you just remove its Ruby gem from the *Gemfile*. You can leave the config if you wish, so you can use it at a later time. It won't get called if the service's Ruby gem isn't available.
 
 ### In Rails projects
