@@ -1,6 +1,10 @@
 module Err
   class Service
     class << self
+      def key
+        @key ||= name.split("::").last.gsub(/^./, &:downcase).gsub(/[A-Z]/) { |s| "_#{s.downcase}" }
+      end
+
       def available?
         raise NotImplementedError
       end
