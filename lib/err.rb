@@ -19,6 +19,14 @@ module Err
       setup!
     end
 
+    def notify(exception, params = {})
+      call_each_service :notify, exception, params
+    end
+
+    def message(msg, params = {})
+      call_each_service :message, msg, params
+    end
+
     def setup!
       call_each_service :environments=, environments
       call_each_service :ignore=, ignore
