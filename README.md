@@ -57,9 +57,9 @@ Err.configure :airbrake do |config|
 end
 ```
 
-To remove a service, you just remove its Ruby gem from the *Gemfile*. You can leave the config if you wish, so you can use it at a later time. It won't get called if the service's Ruby gem isn't available.
+If you don't use Rails, you can do this anywhere in your application setup, as long as the service gems are loaded in advance.
 
-### In Rails projects
+To remove a service, just remove its Ruby gem from the *Gemfile*. You can leave the config if you wish, so you can use it at a later time. It won't get called if the service's Ruby gem isn't available.
 
 ## Defaults
 
