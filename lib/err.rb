@@ -39,14 +39,14 @@ module Err
       services.select(&:enabled?)
     end
 
+    def find_service_by_key(key)
+      services.find { |s| s.key == key.to_s }
+    end
+
     private
 
     def config
       Configuration
-    end
-
-    def find_service_by_key(key)
-      services.find { |s| s.key == key.to_s }
     end
 
     def call_each_service(method, *args)

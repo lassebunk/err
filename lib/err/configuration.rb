@@ -25,6 +25,14 @@ module Err
       end
 
       attr_writer :ignore
+
+      def method_missing(method, *args, &block)
+        if service = Err.find_service_by_key(method)
+          service.configure(&block)
+        else
+          super
+        end
+      end
     end
   end
 end

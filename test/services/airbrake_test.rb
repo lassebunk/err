@@ -10,9 +10,19 @@ class AirbrakeTest < Minitest::Test
   end
 
   def test_configure
-    Airbrake.expects(:configure).once
-    Err::Airbrake.configure do |config|
+    Err.configure do |config|
+      config.airbrake do |config|
+        config.api_key = "123"
+      end
     end
+    assert_equal "123", Airbrake.configuration.api_key
+  end
+
+  def test_configure_separate
+    Err.configure :airbrake do |config|
+      config.api_key = "456"
+    end
+    assert_equal "456", Airbrake.configuration.api_key
   end
 
   def test_configure_development_environments

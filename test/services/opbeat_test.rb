@@ -10,9 +10,19 @@ class OpbeatTest < Minitest::Test
   end
 
   def test_configure
-    Opbeat.expects(:configure).once
-    Err::Opbeat.configure do |config|
+    Err.configure do |config|
+      config.opbeat do |config|
+        config.organization_id = "123"
+      end
     end
+    assert_equal "123", Opbeat.configuration.organization_id
+  end
+
+  def test_configure_separate
+    Err.configure :opbeat do |config|
+      config.organization_id = "456"
+    end
+    assert_equal "456", Opbeat.configuration.organization_id
   end
 
   def test_configure_development_environments

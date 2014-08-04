@@ -10,9 +10,19 @@ class HoneybadgerTest < Minitest::Test
   end
 
   def test_configure
-    Honeybadger.expects(:configure).once
-    Err::Honeybadger.configure do |config|
+    Err.configure do |config|
+      config.honeybadger do |config|
+        config.api_key = "123"
+      end
     end
+    assert_equal "123", Honeybadger.configuration.api_key
+  end
+
+  def test_configure_separate
+    Err.configure :honeybadger do |config|
+      config.api_key = "456"
+    end
+    assert_equal "456", Honeybadger.configuration.api_key
   end
 
   def test_configure_development_environments
