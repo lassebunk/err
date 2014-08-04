@@ -10,7 +10,7 @@ module Err
       if service_key
         service = find_service_by_key(service_key)
         raise "Service #{service_key.inspect} not found" unless service
-        service.configure(&block)
+        service.configure(&block) if service.enabled?
       else
         yield config
       end

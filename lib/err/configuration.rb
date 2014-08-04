@@ -28,7 +28,7 @@ module Err
 
       def method_missing(method, *args, &block)
         if service = Err.find_service_by_key(method)
-          service.configure(&block)
+          service.configure(&block) if service.enabled?
         else
           super
         end
