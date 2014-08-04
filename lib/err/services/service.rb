@@ -17,7 +17,7 @@ module Err
         raise NotImplementedError
       end
 
-      def environments=(envs)
+      def development_environments=(envs)
         raise NotImplementedError
       end
 

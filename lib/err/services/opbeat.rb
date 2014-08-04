@@ -10,8 +10,8 @@ module Err
         opbeat.configure(&block)
       end
 
-      def environments=(envs)
-        config.environments = envs.map(&:to_s)
+      def development_environments=(envs)
+        config.environments = [config.current_environment] - envs.map(&:to_s)
       end
 
       def ignore=(exception_names)

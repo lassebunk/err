@@ -10,8 +10,8 @@ module Err
         airbrake.configure(&block)
       end
 
-      def environments=(envs)
-        config.development_environments -= envs.map(&:to_s)
+      def development_environments=(envs)
+        config.development_environments = envs.map(&:to_s)
       end
 
       def ignore=(exception_names)

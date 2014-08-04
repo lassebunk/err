@@ -15,13 +15,11 @@ class AirbrakeTest < Minitest::Test
     end
   end
 
-  def test_set_environments
+  def test_set_development_environments
     config = Airbrake.configuration
-    assert config.development_environments.include?("development")
-    Err::Airbrake.environments = %w{development staging}
-    assert !config.development_environments.include?("development")
     assert !config.development_environments.include?("staging")
-    assert config.development_environments.include?("test")
+    Err::Airbrake.development_environments = %w{development staging}
+    assert config.development_environments.include?("staging")
   end
 
   def test_set_ignore

@@ -17,11 +17,9 @@ class HoneybadgerTest < Minitest::Test
 
   def test_set_environments
     config = Honeybadger.configuration
-    assert config.development_environments.include?("development")
-    Err::Honeybadger.environments = %w{development staging}
-    assert !config.development_environments.include?("development")
     assert !config.development_environments.include?("staging")
-    assert config.development_environments.include?("test")
+    Err::Honeybadger.development_environments = %w{development staging}
+    assert config.development_environments.include?("staging")
   end
 
   def test_set_ignore

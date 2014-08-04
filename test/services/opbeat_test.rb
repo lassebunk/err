@@ -18,10 +18,8 @@ class OpbeatTest < Minitest::Test
   def test_set_environments
     config = Opbeat.configuration
     assert config.environments.include?("production")
-    Err::Opbeat.environments = %w{development staging}
+    Err::Opbeat.development_environments = %w{development production}
     assert !config.environments.include?("production")
-    assert config.environments.include?("development")
-    assert config.environments.include?("staging")
   end
 
   def test_set_ignore
