@@ -5,8 +5,6 @@
 }.each { |f| require "err/#{f}" }
 
 module Err
-  extend Configuration
-
   class << self
     def configure(service_key = nil, &block)
       if service_key
@@ -14,7 +12,7 @@ module Err
         raise "Service #{service_key.inspect} not found" unless service
         service.configure(&block)
       else
-        yield self
+        yield config
       end
       setup!
     end
@@ -41,6 +39,10 @@ module Err
     end
 
     private
+
+    def config
+      Configuration
+    end
 
     def find_service_by_key(key)
       services.find { |s| s.key == key.to_s }
