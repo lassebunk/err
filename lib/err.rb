@@ -27,7 +27,7 @@ module Err
 
     def setup!
       [:development_environments, :ignore].each do |method|
-        call_each_service "#{method}=", send(method)
+        call_each_service "#{method}=", config.send(method)
       end
     end
 
