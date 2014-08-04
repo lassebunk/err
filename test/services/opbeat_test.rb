@@ -15,18 +15,20 @@ class OpbeatTest < Minitest::Test
     end
   end
 
-  def test_set_environments
-    config = Opbeat.configuration
-    assert config.environments.include?("production")
-    Err::Opbeat.development_environments = %w{development production}
-    assert !config.environments.include?("production")
+  def test_configure_development_environments
+    Err.configure do |config|
+      config.development_environments = %w{development production}
+    end
+    assert !Opbeat.configuration.environments.include?("production")
   end
 
-  def test_set_ignore
-    Err::Opbeat.ignore = %w{
-      ActiveRecord::RecordNotFound
-      ActionController::RoutingError
-    }
+  def test_configure_ignore
+    Err.configure do |config|
+      config.ignore = %w{
+        ActiveRecord::RecordNotFound
+        ActionController::RoutingError
+      }
+    end
 
     assert_equal %w{ ActiveRecord::RecordNotFound ActionController::RoutingError },
                  Opbeat.configuration.excluded_exceptions

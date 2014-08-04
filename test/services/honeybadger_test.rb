@@ -15,18 +15,20 @@ class HoneybadgerTest < Minitest::Test
     end
   end
 
-  def test_set_environments
-    config = Honeybadger.configuration
-    assert !config.development_environments.include?("staging")
-    Err::Honeybadger.development_environments = %w{development staging}
-    assert config.development_environments.include?("staging")
+  def test_configure_development_environments
+    Err.configure do |config|
+      config.development_environments = %w{development staging}
+    end
+    assert Honeybadger.configuration.development_environments.include?("staging")
   end
 
-  def test_set_ignore
-    Err::Honeybadger.ignore = %w{
-      ActiveRecord::RecordNotFound
-      ActionController::RoutingError
-    }
+  def test_configure_ignore
+    Err.configure do |config|
+      config.ignore = %w{
+        ActiveRecord::RecordNotFound
+        ActionController::RoutingError
+      }
+    end
 
     assert_equal %w{ ActiveRecord::RecordNotFound ActionController::RoutingError },
                  Honeybadger.configuration.ignore
