@@ -1,6 +1,6 @@
 module Err
   module Configuration
-    DEFAULT_DEVELOPMENT_ENVIRONMENTS = %w{  }
+    DEFAULT_DEVELOPMENT_ENVIRONMENTS = %w{ development test cucumber }
     DEFAULT_IGNORE = %w{
       ActiveRecord::RecordNotFound,
       ActionController::RoutingError,
