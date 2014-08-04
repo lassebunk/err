@@ -1,6 +1,6 @@
 require "test_helper"
 
-class HoneybadgerTest < Test::Unit::TestCase
+class HoneybadgerTest < Minitest::Test
   def test_key
     assert_equal "honeybadger", Err::Honeybadger.key
   end

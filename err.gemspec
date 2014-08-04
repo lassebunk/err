@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "bundler", "~> 1.6"
   s.add_development_dependency "rake"
   s.add_development_dependency "mocha", "~> 1.1"
+  s.add_development_dependency "minitest"
 
   # Services
   s.add_development_dependency "airbrake"

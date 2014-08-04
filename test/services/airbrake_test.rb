@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AirbrakeTest < Test::Unit::TestCase
+class AirbrakeTest < Minitest::Test
   def test_key
     assert_equal "airbrake", Err::Airbrake.key
   end

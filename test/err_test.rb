@@ -1,4 +1,4 @@
 require "test_helper"
 
-class ErrTest < Test::Unit::TestCase
+class ErrTest < Minitest::Test
 end

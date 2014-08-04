@@ -1,6 +1,6 @@
 require "test_helper"
 
-class OpbeatTest < Test::Unit::TestCase
+class OpbeatTest < Minitest::Test
   def test_key
     assert_equal "opbeat", Err::Opbeat.key
   end
