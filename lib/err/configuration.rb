@@ -2,14 +2,14 @@ module Err
   module Configuration
     DEFAULT_DEVELOPMENT_ENVIRONMENTS = %w{ development test cucumber }
     DEFAULT_IGNORE = %w{
-      ActiveRecord::RecordNotFound,
-      ActionController::RoutingError,
-      ActionController::InvalidAuthenticityToken,
-      CGI::Session::CookieStore::TamperedWithCookie,
-      ActionController::UnknownHttpMethod,
-      ActionController::UnknownAction,
-      AbstractController::ActionNotFound,
-      Mongoid::Errors::DocumentNotFound,
+      ActiveRecord::RecordNotFound
+      ActionController::RoutingError
+      ActionController::InvalidAuthenticityToken
+      CGI::Session::CookieStore::TamperedWithCookie
+      ActionController::UnknownHttpMethod
+      ActionController::UnknownAction
+      AbstractController::ActionNotFound
+      Mongoid::Errors::DocumentNotFound
       ActionController::UnknownFormat
     }
 
