@@ -19,13 +19,11 @@ module Err
       end
 
       def notify(exception, params = {})
-        opbeat.captureException(exception)
+        opbeat.captureException(exception, extra: params)
       end
 
       def message(msg, params = {})
-        msg = msg.dup
-        msg << " (#{params_string(params)})" if params.any?
-        opbeat.captureMessage(msg)
+        opbeat.captureMessage(msg, extra: params)
       end
 
       private

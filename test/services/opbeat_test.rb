@@ -45,12 +45,24 @@ class OpbeatTest < Minitest::Test
   end
 
   def test_notify
-    Opbeat.expects(:captureException).once
-    Err::Opbeat.notify RuntimeError.new
+    exception = RuntimeError.new
+    Opbeat.expects(:captureException).with(exception, extra: {}).once
+    Err::Opbeat.notify exception
+  end
+
+  def test_notify_with_params
+    exception = RuntimeError.new
+    Opbeat.expects(:captureException).with(exception, extra: { id: 1, b: 2 }).once
+    Err::Opbeat.notify exception, id: 1, b: 2
   end
 
   def test_message
-    Opbeat.expects(:captureMessage).once
+    Opbeat.expects(:captureMessage).with("This is a test", extra: {}).once
+    Err::Opbeat.message "This is a test"
+  end
+
+  def test_message_with_params
+    Opbeat.expects(:captureMessage).with("This is a test", extra: { one: "First", two: "Second" }).once
     Err::Opbeat.message "This is a test", one: "First", two: "Second"
   end
 end
